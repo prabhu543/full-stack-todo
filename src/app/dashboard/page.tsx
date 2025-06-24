@@ -22,13 +22,13 @@ export default async function Dashboard() {
 	const todos = await getTodos();
 
 	return (
-		<main className='p-4 bg-gradient-to-br from-blue-100 to-blue-300 py-10'>
+		<main className='p-4 py-10'>
 			<Link href='/dashboard/history'>
 				<Button variant='link'>History </Button>
 			</Link>
-			<section className='max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8'>
+			<section className='max-w-3xl mx-auto shadow-lg rounded-lg p-8 border-1 border-blue-500'>
 				<header className='flex items-center justify-between mb-8'>
-					<h1 className='text-2xl font-bold text-blue-900'>My Todos</h1>
+					<h1 className='text-2xl font-bold'>My Todos</h1>
 					<Link href='/dashboard/new'>
 						<Button variant='default'>+ New Todo</Button>
 					</Link>
@@ -46,17 +46,14 @@ export default async function Dashboard() {
 						{todos.map(({ complete, title, id }) => (
 							<li
 								key={id}
-								className='flex items-center justify-between bg-gray-50 rounded p-4 shadow-sm hover:shadow transition'>
+								className={`flex items-center justify-between border-1 border-${
+									complete
+										? 'border-1 border-green-100'
+										: 'border-1 border-yellow-500'
+								} rounded p-4 shadow-sm hover:shadow transition`}>
 								<div className='flex items-center justify-between w-full'>
 									<div>
-										<h3
-											className={`font-medium text-lg ${
-												complete
-													? 'line-through text-gray-400'
-													: 'text-gray-800'
-											}`}>
-											{title}
-										</h3>
+										<h3 className={`font-medium text-lg capitalize`}>{title}</h3>
 										<StatusBadge complete={complete} />
 									</div>
 									<div className='flex gap-2'>
